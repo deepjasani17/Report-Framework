@@ -1,6 +1,6 @@
 # My React Application
 
-This repository contains a React application built with Vite and Material UI components. The application includes search functionality and data display using Material UI's table component.
+This repository contains a React application built with Vite and Material UI components.
 
 ## Setup Instructions
 
