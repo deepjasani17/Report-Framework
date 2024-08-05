@@ -1,22 +1,35 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import FetchData from './FetchData'
+import { useState } from 'react';
+import './App.css';
+import { mockData } from './FetchData';
 
-function App() {
-  const [count, setCount] = useState(0)
-  useEffect(()=>{
-    fetch('https://run.mocky.io/v3/69f60a58-3a36-48c5-a9cf-b100b015950c')
-    .then(res => res.json())
-    .then(data => setCount(data))
-    .catch(err=>console.log(err))
-  })
+function Search({ onSearch }) {
+  const [query, setQuery] = useState('');
+
+  const handleSearch = (event) => {
+    const value = event.target.value;
+    setQuery(value);
+
+    const lowercasedQuery = value.toLowerCase();
+    const filtered = mockData.filter(item =>
+      Object.values(item).some(val =>
+        String(val).toLowerCase().includes(lowercasedQuery)
+      )
+    );
+
+    onSearch(filtered);
+  };
+
   return (
-    <>
-      <FetchData/>
-    </>
-  )
+    <div>
+      Search: 
+      <input
+        type="text"
+        value={query}
+        onChange={handleSearch}
+        placeholder="Search..."
+      />
+    </div>
+  );
 }
 
-export default App
+export default Search;
